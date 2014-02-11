@@ -382,11 +382,11 @@ function os2dagsorden_settings_settings_form($form, $form_state) {
     '#default_value' => variable_get('os2dagsorden_hidden_agenda_committee', OS2DAGSORDEN_HIDDEN_AGENGA_COMMITTEE),
   );
 
-    $form['os2dagsorden_pdf2htmlEX'] = array(
+    $form['os2dagsorden_pdfhtmlex_path'] = array(
         '#type' => 'textfield',
         '#title' => 'Path to pdf2htmlEX',
         '#description' => 'Path to pdf2htmlEX',
-        '#default_value' => variable_get('os2dagsorden_pdf2htmlEX', ""),
+        '#default_value' => variable_get('os2dagsorden_pdfhtmlex_path', ""),
         '#element_validate' => array('_os2dagsorden_pdf2htmlEX_validate'),
     );
 
@@ -395,10 +395,16 @@ function os2dagsorden_settings_settings_form($form, $form_state) {
 
 function _os2dagsorden_pdf2htmlEX_validate($element, &$form_state){
     $value = $element['#value'];
-    if(!is_dir($value)){
-        form_error($element, "Incorrect pdf2htmlEX path");
-        watchdog("os2dagsorden", t('Incorrect pdf2htmlEX path'));
-    }
+//    if(!is_dir($value)){
+//        form_error($element, "Incorrect pdf2htmlEX path");
+//        watchdog("os2dagsorden", t('Incorrect pdf2htmlEX path'));
+//    }
+//    else{
+        if(shell_exec($element['#value'] . ' pdf2htmlEX --version') == null){
+            form_error($element, "Incorrect pdf2htmlEX path");
+            watchdog("os2dagsorden", t('Incorrect pdf2htmlEX path'));
+        }
+//    }
 }
 
 /**
