@@ -32,10 +32,11 @@ function os2dagsorden_settings_requirements($phase){
 
     if($phase != 'install')
     {
+        $exec = shell_exec(variable_get('os2dagsorden_pdfhtmlex_path', "") . ' pdf2htmlEX --version 2>&1');
         $requirements['os2dagsorden_settings'] = array(
             'title' => $t('pdf2htmlEX path'),
             'value' => variable_get('os2dagsorden_pdfhtmlex_path', ""),
-            'severity' => is_dir(variable_get('os2dagsorden_pdfhtmlex_path', ""))?REQUIREMENT_OK:REQUIREMENT_ERROR,
+            'severity' => (strpos($exec, 'pdf2htmlEX version') === false)?REQUIREMENT_OK:REQUIREMENT_ERROR,
             'description' => $t('Specified pdf2htmlEX path is not correct. Please check pdf2htmlEX path in OS2dagsorner setup page.'),
         );
     }
