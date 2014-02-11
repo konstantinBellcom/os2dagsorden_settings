@@ -400,8 +400,8 @@ function _os2dagsorden_pdf2htmlEX_validate($element, &$form_state){
 //        watchdog("os2dagsorden", t('Incorrect pdf2htmlEX path'));
 //    }
 //    else{
-    debug($value . ' pdf2htmlEX --version');
-    debug(shell_exec($value . ' pdf2htmlEX --version'));
+    debug($value . ' pdf2htmlEX --version 2>&1');
+    debug(shell_exec($value . ' pdf2htmlEX --version 2>&1'));
         if(shell_exec($value . ' pdf2htmlEX --version 2>&1') == null){
             form_error($element, "Incorrect pdf2htmlEX path");
             watchdog("os2dagsorden", t('Incorrect pdf2htmlEX path'));
