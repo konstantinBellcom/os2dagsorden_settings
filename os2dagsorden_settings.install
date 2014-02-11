@@ -23,4 +23,19 @@ function os2dagsorden_settings_uninstall() {
   variable_del('os2dagsorden_pws_v_acadregroups_url');
   variable_del('os2dagsorden_annotator_url');
   variable_del('os2dagsorden_annotator_port_nr');
+  variable_del('os2dagsorden_pdf2htmlEX ');
+}
+
+function os2dagsorden_settings_requirements($phase){
+    $requirements = array();
+    $t = get_t();
+
+    $requirements['os2dagsorden_settings'] = array(
+        'title' => $t('pdf2htmlEX path'),
+        'value' => variable_get('os2dagsorden_pdf2htmlEX', ""),
+        'severity' => is_dir(variable_get('os2dagsorden_pdf2htmlEX', ""))?REQUIREMENT_OK:REQUIREMENT_WARNING,
+        'description' => $t('pdf2htmlEX path'),
+    );
+
+    return $requirements;
 }
